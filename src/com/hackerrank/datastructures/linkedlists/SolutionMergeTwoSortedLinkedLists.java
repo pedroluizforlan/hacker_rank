@@ -53,26 +53,41 @@ public class SolutionMergeTwoSortedLinkedLists {
 
 
     static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
-        SinglyLinkedListNode h1 = head1;
-        SinglyLinkedListNode h2 = head2;
-        SinglyLinkedListNode merge = null;
+        SinglyLinkedListNode h1 = null;
+        SinglyLinkedListNode h2 = null;
 
-        if(h1 == null)
-            return h2;
-        if(h2 == null)
-            return h1;
-        if (h1 != null && h2 != null){
-            if(h1.data < h2.data){
-                temp = h1;
-                h1 = h1.next;
-            } else {
-                temp = h2;
-                h2 = h2.next;
-            }
-            merge = temp;
+        if(head1.data < head2.data){
+            h1 = head1;
+            h2 = head1;
+            head1 = head1.next;
+        } else {
+            h1 = head2;
+            h2 = head2;
+            head2 = head2.next;
         }
 
-        return merge;
+        while(head1 != null && head2 != null){
+            if (head1.data < head2.data){
+              h2.next = head1;
+              h2 = h2.next;
+              head1 = head1.next;
+            } else {
+                h2.next = head2;
+                h2 = h2.next;
+                head2 = head2.next;
+            }
+        }
+        while(head1 != null){
+            h2.next = head1;
+            h2 = h2.next;
+            head1 = head1.next;
+        }
+        while(head2s != null){
+            h2.next = head2;
+            h2 = h2.next;
+            head2 = head2.next;
+        }
+        return h1;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
